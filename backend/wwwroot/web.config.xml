@@ -1,0 +1,7 @@
+<configuration>
+    <system.web>
+        <urlMappings enabled="true">
+            <add url="~/wwwroot/swagger/v1/swagger/" mappedUrl="~/index.html" />
+        </urlMappings>
+    </system.web>
+</configuration>

@@ -1,0 +1,95 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Lookup Service API",
+    "version": "v1"
+  },
+  "paths": {
+    "/ping": {
+      "get": {
+        "summary": "Health-check to make sure the service is up.",
+        "responses": {
+          "200": {
+            "description": "The service is up and running."
+          }
+        }
+      }
+    },
+    "/credit-data/{ssn}": {
+      "get": {
+        "summary": "Return aggregated credit data.",
+        "parameters": [
+          {
+            "name": "ssn",
+            "in": "path",
+            "required": true,
+            "description": "Social security number.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "424-11-9327"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Aggregated credit data for given ssn.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreditData"
+                },
+                "examples": {
+                  "CreditDataEmma": {
+                    "$ref": "#/components/examples/CreditDataEmma"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Credit data not found for given ssn."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreditData": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "assessed_income": {
+            "type": "integer"
+          },
+          "balance_of_debt": {
+            "type": "integer"
+          },
+          "complaints": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "examples": {
+      "CreditDataEmma": {
+        "value": {
+          "first_name": "Emma",
+          "last_name": "Gautrey",
+          "address": "09 Westend Terrace",
+          "assessed_income": 60668,
+          "balance_of_debt": 11585,
+          "complaints": true
+        }
+      }
+    }
+  }
+}

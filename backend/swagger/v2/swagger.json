@@ -1,0 +1,190 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Credit Data API",
+    "version": "v2"
+  },
+  "paths": {
+    "/personal-details/{ssn}": {
+      "get": {
+        "summary": "Return personal details.",
+        "parameters": [
+          {
+            "name": "ssn",
+            "in": "path",
+            "required": true,
+            "description": "Social security number.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "424-11-9327"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Personal details for given ssn.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Cache-Control response directives, e.g. \"private, max-age=604800\" or \"no-store\""
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonalDetails"
+                },
+                "examples": {
+                  "PersonalDetailsEmma": {
+                    "$ref": "#/components/examples/PersonalDetailsEmma"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Personal data not found for given ssn."
+          }
+        }
+      }
+    },
+    "/assessed-income/{ssn}": {
+      "get": {
+        "summary": "Return assessed details income.",
+        "parameters": [
+          {
+            "name": "ssn",
+            "in": "path",
+            "required": true,
+            "description": "Social security number.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "424-11-9327"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Assessed income details for given ssn.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssessedIncomeDetails"
+                },
+                "examples": {
+                  "AssessedIncomeEmma": {
+                    "$ref": "#/components/examples/AssessedIncomeDetailsEmma"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Personal data not found for given ssn."
+          }
+        }
+      }
+    },
+    "/debt/{ssn}": {
+      "get": {
+        "summary": "Return debt details.",
+        "parameters": [
+          {
+            "name": "ssn",
+            "in": "path",
+            "required": true,
+            "description": "Social security number.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "424-11-9327"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Debt details for given ssn.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DebtDetails"
+                },
+                "examples": {
+                  "DebtEmma": {
+                    "$ref": "#/components/examples/DebtDetailsEmma"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Personal data not found for given ssn."
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://infra.devskills.app/api/credit-data"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "PersonalDetails": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          }
+        }
+      },
+      "AssessedIncomeDetails": {
+        "type": "object",
+        "properties": {
+          "assessed_income": {
+            "type": "integer"
+          }
+        }
+      },
+      "DebtDetails": {
+        "type": "object",
+        "properties": {
+          "balance_of_debt": {
+            "type": "integer"
+          },
+          "complaints": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "examples": {
+      "PersonalDetailsEmma": {
+        "value": {
+          "first_name": "Emma",
+          "last_name": "Gautrey",
+          "address": "09 Westend Terrace"
+        }
+      },
+      "AssessedIncomeDetailsEmma": {
+        "value": {
+          "assessed_income": 60668
+        }
+      },
+      "DebtDetailsEmma": {
+        "value": {
+          "balance_of_debt": 11585,
+          "complaints": true
+        }
+      }
+    }
+  }
+}

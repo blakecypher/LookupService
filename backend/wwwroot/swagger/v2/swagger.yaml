@@ -1,0 +1,102 @@
+openapi: 3.0.1
+info:
+  title: Credit Data API
+  version: v2
+paths:
+  '/v2/AssessedIncome/{ssn}':
+    get:
+      tags:
+        - AssessedIncome
+      parameters:
+        - name: ssn
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/model.AssessedIncomeDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/model.AssessedIncomeDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/model.AssessedIncomeDetails'
+  '/v2/Debt/{ssn}':
+    get:
+      tags:
+        - Debt
+      parameters:
+        - name: ssn
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/model.DebtDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/model.DebtDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/model.DebtDetails'
+  '/v2/PersonalDetails/{ssn}':
+    get:
+      tags:
+        - PersonalDetails
+      parameters:
+        - name: ssn
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/model.PersonalDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/model.PersonalDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/model.PersonalDetails'
+components:
+  schemas:
+    model.AssessedIncomeDetails:
+      type: object
+      properties:
+        assessedIncome:
+          type: integer
+          format: int32
+      additionalProperties: false
+    model.DebtDetails:
+      type: object
+      properties:
+        balanceOfDebt:
+          type: integer
+          format: int32
+        complaints:
+          type: boolean
+      additionalProperties: false
+    model.PersonalDetails:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address:
+          type: string
+      additionalProperties: false

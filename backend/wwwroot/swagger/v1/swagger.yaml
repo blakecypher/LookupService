@@ -1,0 +1,57 @@
+openapi: 3.0.1
+info:
+  title: Lookup Service API
+  version: v1
+paths:
+  '/v1/CreditData/{ssn}':
+    get:
+      tags:
+        - CreditData
+      parameters:
+        - name: ssn
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/model.CreditData'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/model.CreditData'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/model.CreditData'
+  '/v1/Ping':
+    get:
+      tags:
+        - Ping
+      responses:
+        '200':
+          description: Success
+components:
+  schemas:
+    model.CreditData:
+      type: object
+      properties:
+        ssn:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address:
+          type: string
+        assessedIncome:
+          type: integer
+          format: int32
+        balanceOfDebt:
+          type: integer
+          format: int32
+        complaints:
+          type: boolean
+      additionalProperties: false
